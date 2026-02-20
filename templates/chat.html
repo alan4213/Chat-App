@@ -95,7 +95,8 @@
         const currentUserId = {{ user.id }};
         const otherUserId = {{ other_user.id }};
         const roomName = [currentUserId, otherUserId].sort().join('_');
-        const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + roomName + '/');
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+        const chatSocket = new WebSocket(wsProtocol + window.location.host + '/ws/chat/' + roomName + '/');
 
         chatSocket.onopen = function() {
             chatSocket.send(JSON.stringify({
